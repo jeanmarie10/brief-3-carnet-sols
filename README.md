@@ -1,10 +1,9 @@
 # Carnet d'observation des sols
 
-> Projet individuel du SAS DFS, brief 3 (sujet : [SUJET.md](SUJET.md)). Remplacez chaque ✏️ par votre texte, puis supprimez cette ligne.
 
 ## Contexte
 
-✏️ *En cinq à huit phrases : qui utilise l'outil (son métier, son geste professionnel), son besoin, ce qu'il saisit, ce que le programme lui affiche, ce que l'outil ne fait pas.*
+Cet outil est destiné à l'assistant terrain de la ferme pédagogique afin de consigner les observations de terrain sur les parcelles agricoles. Il permet de saisir la texture du sol, la valeur du pH mesurée et l'état d'humidité observé. L'application affiche la liste structurée des relevés, permet des recherches par point ou parcelle, effectue des tris par pH et produit une synthèse statistique repérant les sols très acides. Le carnet relève des constats objectifs mais ne produit en aucun cas de diagnostic de fertilisation automatique.
 
 ## Prérequis et lancement
 
