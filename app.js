@@ -42,7 +42,45 @@ async function main() {
     if (choix === null || choix === '0') {
       console.log('Au revoir !');
       break;
-    }  
+    }
+        }
+
+    try {
+      switch (choix) {
+        case '1': {
+          console.log('\n--- Ajouter une observation ---');
+          const id = await demander('Point observé (ex. S11) : ');
+          if (id === null) break;
+          const parcelle = await demander('Parcelle (ex. P1) : ');
+          if (parcelle === null) break;
+          const texture = await demander(`Texture (${TEXTURES.join(', ')}) : `);
+          if (texture === null) break;
+          const pH = await demander('pH (nombre de 0 à 14, sans unité, virgule acceptée) : ');
+          if (pH === null) break;
+          const etatHumidite = await demander(`État d'humidité (${HUMIDITES.join(', ')}) : `);
+          if (etatHumidite === null) break;
+
+          const saisie = {
+            id: id.toUpperCase(),
+            parcelle: parcelle.toUpperCase(),
+            texture: texture.toLowerCase(),
+            pH,
+            etatHumidite: etatHumidite.toLowerCase(),
+          };
+
+          const erreurs = ajouterObservation(observations, saisie);
+          if (erreurs.length === 0) {
+            await enregistrerJson(FICHIER_DONNEES, observations);
+            console.log(`Observation ${saisie.id} ajoutée. Le carnet compte ${observations.length} observation(s).`);
+          } else {
+            console.log('Observation refusée :');
+            for (const err of erreurs) {
+              console.log(`  - ${err}`);
+            }
+            console.log(`Le carnet compte toujours ${observations.length} observation(s).`);
+          }
+          break;
+        }  
   }
   fermerSaisie();
 }
