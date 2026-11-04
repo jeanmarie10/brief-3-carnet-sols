@@ -80,6 +80,12 @@ async function main() {
             console.log(`Le carnet compte toujours ${observations.length} observation(s).`);
           }
           break;
+        }
+
+        case '2': {
+          console.log(`\n--- Liste des observations (${observations.length}) ---`);
+          console.log(listerObservations(observations));
+          break;
         }  
   }
   fermerSaisie();
