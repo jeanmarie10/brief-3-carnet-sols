@@ -31,8 +31,6 @@ async function main() {
     console.log('3. Rechercher (point, parcelle, texture)');
     console.log('4. Trier par pH');
     console.log('5. Synthèse des observations');
-    console.log('6. Supprimer une observation');
-    console.log('7. Modifier une observation'); 
     console.log('0. Quitter');
 
     const choix = await demander('Votre choix : ');
