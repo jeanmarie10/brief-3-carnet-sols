@@ -12,7 +12,38 @@ const FICHIER_DONNEES = 'donnees/observations.json';
 
 async function main() {
   ouvrirSaisie();
-  console.log("À compléter : écrivez le menu dans app.js (fiches/3-ajouter-lister.md).");
+ console.log('==================================================');
+  console.log("   CARNET D'OBSERVATION DES SOLS");
+  console.log('   Ferme pédagogique');
+  console.log('==================================================');
+
+  let observations = [];
+  try {
+    observations = await chargerJson(FICHIER_DONNEES);
+    console.log(`${observations.length} observation(s) chargée(s) depuis ${FICHIER_DONNEES}.`);
+  } catch (erreur) {
+    console.log(`Impossible de lire ${FICHIER_DONNEES} : ${erreur.message}. Le carnet démarre vide.`);
+  }
+
+  let continuer = true;
+
+  while (continuer) {
+    console.log('\n--------------------- MENU ---------------------');
+    console.log('1. Ajouter une observation');
+    console.log('2. Lister les observations');
+    console.log('3. Rechercher (point, parcelle, texture)');
+    console.log('4. Trier par pH');
+    console.log('5. Synthèse des observations');
+    console.log('6. Supprimer une observation');
+    console.log('7. Modifier une observation');
+    console.log('0. Quitter');
+
+    const choix = await demander('Votre choix : ');
+    if (choix === null || choix === '0') {
+      console.log('Au revoir !');
+      break;
+    }  
+  }
   fermerSaisie();
 }
 
