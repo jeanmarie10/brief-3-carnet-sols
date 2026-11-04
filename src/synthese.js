@@ -42,5 +42,5 @@ export function compterParTexture(observations) {
 // Renvoie un NOUVEAU tableau avec les observations dont le pH est STRICTEMENT inférieur au seuil.
 // Exemple : pointsADiscuter(observations, 5.5) garde 5.4 mais pas 5.5.
 export function pointsADiscuter(observations, seuil) {
-  throw new Error('TODO : coder pointsADiscuter dans src/synthese.js');
+  return observations.filter((observation) => observation.pH < seuil);
 }
