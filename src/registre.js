@@ -72,11 +72,21 @@ export function verifierObservation(saisie, observations) {
 
 // Fabrique l'observation à enregistrer à partir d'une saisie VALIDE : pH devient un nombre.
 export function creerObservation(saisie) {
-  throw new Error('TODO : coder creerObservation dans src/registre.js');
+ // throw new Error('TODO : coder creerObservation dans src/registre.js');
+  const valide = {...saisie};
+  valide.pH = versNombre(saisie.pH);
+  return valide;
 }
 
 // Ajoute la saisie au carnet si elle est valide (verifierObservation, puis creerObservation).
 // Renvoie les erreurs : [] si l'observation a été ajoutée ; sinon les messages, et rien n'est ajouté.
 export function ajouterObservation(observations, saisie) {
-  throw new Error('TODO : coder ajouterObservation dans src/registre.js');
+ // throw new Error('TODO : coder ajouterObservation dans src/registre.js');
+  const erreurs = verifierObservation(saisie, observations);
+  if (erreurs.length > 0) {
+    return erreurs;
+  } 
+  const open = creerObservation(saisie);
+  observations.push(open);
+  return [];
 }
