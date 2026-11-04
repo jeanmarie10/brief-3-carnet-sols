@@ -1,7 +1,4 @@
 // Carnet d'observation des sols — point d'entrée : le menu.
-// À vous d'écrire tout le menu : accueil, chargement des données, menu affiché avant chaque choix,
-// actions, sortie et gestion des erreurs. Comportement et textes imposés : fiches/3-ajouter-lister.md.
-// Lancer : node app.js
 import { demander, fermerSaisie, ouvrirSaisie } from './src/saisie.js';
 import { chargerJson, enregistrerJson } from './src/stockage.js';
 import { HUMIDITES, TEXTURES, ajouterObservation, formaterObservation, listerObservations, trouverParId } from './src/registre.js';
@@ -12,7 +9,7 @@ const FICHIER_DONNEES = 'donnees/observations.json';
 
 async function main() {
   ouvrirSaisie();
- console.log('==================================================');
+  console.log('==================================================');
   console.log("   CARNET D'OBSERVATION DES SOLS");
   console.log('   Ferme pédagogique');
   console.log('==================================================');
@@ -35,7 +32,7 @@ async function main() {
     console.log('4. Trier par pH');
     console.log('5. Synthèse des observations');
     console.log('6. Supprimer une observation');
-    console.log('7. Modifier une observation');
+    console.log('7. Modifier une observation'); 
     console.log('0. Quitter');
 
     const choix = await demander('Votre choix : ');
@@ -43,7 +40,6 @@ async function main() {
       console.log('Au revoir !');
       break;
     }
-        }
 
     try {
       switch (choix) {
@@ -126,22 +122,59 @@ async function main() {
         case '4': {
           console.log('\n--- Trier ---');
           console.log('1. Par pH croissant');
-          console.log('2. Par pH décroissant');
           const sousChoix = await demander('Votre choix : ');
           if (sousChoix === null) break;
 
           if (sousChoix === '1') {
             const triees = trierParPh(observations);
             console.log(listerObservations(triees));
-          } else if (sousChoix === '2') {
-            const triees = trierParPhDecroissant(observations);
-            console.log(listerObservations(triees));
           } else {
             console.log('Choix inconnu : retour au menu.');
           }
           break;
         }
+
+        case '5': {
+          console.log('\n--- Synthèse des observations ---');
+          console.log(`Nombre d'observations : ${observations.length}`);
+
+          if (observations.length === 0) {
+            console.log('pH minimum et maximum : aucune donnée');
+          } else {
+            const bornes = phMinMax(observations);
+            console.log(`pH minimum : ${bornes.min} · pH maximum : ${bornes.max}`);
+          }
+
+          console.log('Observations par texture :');
+          const comptage = compterParTexture(observations);
+          for (const [tex, nb] of Object.entries(comptage)) {
+            console.log(`  ${tex} : ${nb}`);
+          }
+
+          const aDiscuter = pointsADiscuter(observations, SEUIL_PH_A_DISCUTER);
+          console.log(`Points à discuter avec le coach (pH < ${SEUIL_PH_A_DISCUTER}) : ${aDiscuter.length}`);
+          for (const point of aDiscuter) {
+            console.log(`  ${formaterObservation(point)}`);
+          }
+
+          console.log("Rappels : le pH est sans unité. Aucune moyenne de pH n'est calculée (échelle logarithmique).");
+          console.log("Ces points ne sont pas un diagnostic de fertilisation : ils servent à préparer l'échange avec le coach.");
+          break;
+        }
+
+        default:
+          console.log(`Choix inconnu : « ${choix} ». Tapez un chiffre du menu.`);
+          break;
+      }
+    } catch (erreur) {
+      if (erreur.message?.startsWith('TODO')) {
+        console.log(`À compléter : ${erreur.message}`);
+      } else {
+        console.log(`Erreur inattendue : ${erreur.message}`);
+      }
+    }
   }
+
   fermerSaisie();
 }
 
