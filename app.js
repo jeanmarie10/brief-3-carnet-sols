@@ -87,6 +87,60 @@ async function main() {
           console.log(listerObservations(observations));
           break;
         }  
+        
+        case '3': {
+          console.log('\n--- Rechercher ---');
+          console.log('1. Par point (identifiant)');
+          console.log('2. Par parcelle');
+          console.log("3. Les observations d'une texture");
+          const sousChoix = await demander('Votre choix : ');
+          if (sousChoix === null) break;
+
+          if (sousChoix === '1') {
+            const point = await demander('Point : ');
+            if (point === null) break;
+            const trouvee = trouverParId(observations, point.toUpperCase());
+            if (trouvee) {
+              console.log(formaterObservation(trouvee));
+            } else {
+              console.log(`Observation ${point.toUpperCase()} introuvable.`);
+            }
+          } else if (sousChoix === '2') {
+            const parcelle = await demander('Parcelle : ');
+            if (parcelle === null) break;
+            const res = filtrerParParcelle(observations, parcelle.toUpperCase());
+            console.log(`${res.length} observation(s) sur la parcelle ${parcelle.toUpperCase()} :`);
+            console.log(listerObservations(res));
+          } else if (sousChoix === '3') {
+            const texture = await demander('Texture : ');
+            if (texture === null) break;
+            const res = filtrerParTexture(observations, texture.toLowerCase());
+            console.log(`${res.length} observation(s) de texture ${texture.toLowerCase()} :`);
+            console.log(listerObservations(res));
+          } else {
+            console.log('Choix inconnu : retour au menu.');
+          }
+          break;
+        }
+
+        case '4': {
+          console.log('\n--- Trier ---');
+          console.log('1. Par pH croissant');
+          console.log('2. Par pH décroissant');
+          const sousChoix = await demander('Votre choix : ');
+          if (sousChoix === null) break;
+
+          if (sousChoix === '1') {
+            const triees = trierParPh(observations);
+            console.log(listerObservations(triees));
+          } else if (sousChoix === '2') {
+            const triees = trierParPhDecroissant(observations);
+            console.log(listerObservations(triees));
+          } else {
+            console.log('Choix inconnu : retour au menu.');
+          }
+          break;
+        }
   }
   fermerSaisie();
 }
