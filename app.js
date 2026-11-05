@@ -4,6 +4,7 @@ import { chargerJson, enregistrerJson } from './src/stockage.js';
 import { HUMIDITES, TEXTURES, ajouterObservation, formaterObservation, listerObservations, trouverParId } from './src/registre.js';
 import { filtrerParParcelle, filtrerParTexture, trierParPh } from './src/recherche.js';
 import { SEUIL_PH_A_DISCUTER, compterParTexture, phMinMax, pointsADiscuter } from './src/synthese.js';
+import { supprimerObservation, trierParPhDecroissant } from './src/bonus.js';
 
 const FICHIER_DONNEES = 'donnees/observations.json';
 
@@ -31,6 +32,7 @@ async function main() {
     console.log('3. Rechercher (point, parcelle, texture)');
     console.log('4. Trier par pH');
     console.log('5. Synthèse des observations');
+    console.log('6. Supprimer une observation');
     console.log('0. Quitter');
 
     const choix = await demander('Votre choix : ');
@@ -120,11 +122,15 @@ async function main() {
         case '4': {
           console.log('\n--- Trier ---');
           console.log('1. Par pH croissant');
+          console.log('2. Par pH décroissant')
           const sousChoix = await demander('Votre choix : ');
           if (sousChoix === null) break;
 
           if (sousChoix === '1') {
             const triees = trierParPh(observations);
+            console.log(listerObservations(triees));
+          } else if (sousChoix === '2') {
+            const triees = trierParPhDecroissant(observations);
             console.log(listerObservations(triees));
           } else {
             console.log('Choix inconnu : retour au menu.');
@@ -157,6 +163,18 @@ async function main() {
 
           console.log("Rappels : le pH est sans unité. Aucune moyenne de pH n'est calculée (échelle logarithmique).");
           console.log("Ces points ne sont pas un diagnostic de fertilisation : ils servent à préparer l'échange avec le coach.");
+          break;
+        }
+        case '6': {
+          const id = await demander('Identifiant : ');
+          if (id === null) break;
+          const supprimee = supprimerObservation(observations, id.toUpperCase());
+          if (supprimee) {
+            await enregistrerJson(FICHIER_DONNEES, observations);
+            console.log(`Observation ${supprimee.id} supprimée. Le carnet compte ${observations.length} observation(s).`);
+          } else {
+            console.log(`Observation ${id.toUpperCase()} introuvable.`);
+          }
           break;
         }
 
