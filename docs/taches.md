@@ -15,3 +15,16 @@
 | Bonus | seulement si toutes les étapes du socle (tests au vert) sont validées (supprimer et tri décroissant) | 05/11/2026 | https://github.com/jeanmarie10/brief-3-carnet-sols/commit/61ef1c58cbe58cb66eb76b6a64e54292d638ea29 |
 
 **Blocages** (le message exact, ce que j'ai essayé, la solution) : 
+
+**Le message**:
+npm error code ENOENT
+npm error syscall open
+npm error path C:\Users\DELL\projet_sas\package.json
+npm error errno -4058
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open 'C:\Users\DELL\projet_sas\package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: C:\Users\DELL\AppData\Local\npm-cache\_logs\2026-11-05T16_21_27_296Z-debug-0.log
+
+**Ce que j'ai essayé, la solution**:
+Ajout du dossier brief-3-carnet-sols, cd brief-3-carnet-sols 
