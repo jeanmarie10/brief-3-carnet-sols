@@ -15,7 +15,6 @@ D'après le fichier de départ `donnees/observations.json` (10 observations : S0
   - `sableux` : 3 (`S01`, `S04`, `S08`)
   - `limoneux` : 4 (`S02`, `S05`, `S07`, `S10`)
   - `argileux` : 3 (`S03`, `S06`, `S09`)
-  - Texture la plus fréquente : `limoneux` (4)
 - **Points à discuter (seuil : pH < 5,5 strict)** :
   - **4 points** : `S01` (5.2), `S04` (4.8), `S06` (5.4), `S09` (5.1).
   - Un point avec un pH de 5.5 exact n'est pas retenu.

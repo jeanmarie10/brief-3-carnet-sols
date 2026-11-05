@@ -20,24 +20,27 @@ Sous PowerShell, si `npm` est bloqué : `npm.cmd test`.
 
 ## Fonctionnalités
 
-✏️ *Cochez seulement ce qui marche : `- [x]`.*
 
-- [ ] Données lues et enregistrées dans `donnees/observations.json`
-- [ ] Ajouter une observation, saisies invalides refusées sans arrêter le programme
-- [ ] Lister les observations, message si le carnet est vide
-- [ ] Rechercher par point ou par parcelle ; filtrer par texture
-- [ ] Trier par pH
-- [ ] Synthèse : pH minimum et maximum, nombre par texture, points à discuter (pH < 5,5)
-- [ ] Bonus : supprimer et modifier une observation (choix 6 et 7)
-- [ ] Bonus : tri par pH décroissant, texture la plus fréquente
+- *[X]* Données lues et enregistrées dans `donnees/observations.json`
+- *[X]* Ajouter une observation, saisies invalides refusées sans arrêter le programme
+- *[X]* Lister les observations, message si le carnet est vide
+- *[X]* Rechercher par point ou par parcelle ; filtrer par texture
+- *[X]* Trier par pH
+- *[X]* Synthèse : pH minimum et maximum, nombre par texture, points à discuter (pH < 5,5)
+- *[X]* Bonus : supprimer choix 6
+- [ ] Bonus : modifier une observation choix 7
+- *[X]* Bonus : tri par pH décroissant
+- [ ] Bonus : texture la plus fréquente
 
 ## Données
 
-✏️ *Le fichier, le nombre d'observations, les champs (voir [docs/dictionnaire-donnees.md](docs/dictionnaire-donnees.md)), le pH sans unité. Rappelez qu'elles sont fictives.*
+Les données sont stockées au format JSON dans donnees/observations.json. Le fichier initial contient 10 observations fictives composées des propriétés id, parcelle, texture, pH (valeur sans unité) et etatHumidite.
 
 ## Limites
 
-✏️ *Au moins trois. Par exemple : le carnet repère des valeurs à discuter, mais ne produit aucun diagnostic de fertilisation.*
+- Le carnet repère les valeurs de pH inférieures à 5,5 pour alimenter la discussion mais ne produit aucun conseil ni diagnostic de fertilisation.
+- Aucune moyenne mathématique de pH n'est calculée car son échelle est logarithmique.
+- Les textures et états d'humidité sont limités aux classes d'exercice définies par le protocole agronomique.
 
 ## Documents
 
@@ -45,4 +48,14 @@ Sous PowerShell, si `npm` est bloqué : `npm.cmd test`.
 
 ## Auteur
 
-✏️ *Prénom NOM, compte GitHub. Entraide : avec qui, sur quoi.*
+Ebey Jean-Marie Michel DADIE, github.com/jeanmarie10 
+
+**Entraide** :
+
+Ruth TOMEDE (sur le code)
+
+Marius SANOGO (sur l'explication de certains fonctions)
+
+Konan ASSIE (au niveau du compte github et du code)
+
+Marc LIADE (sur le fichier app.js)
